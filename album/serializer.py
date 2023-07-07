@@ -3,6 +3,8 @@ from .models import Image, Tag, ImageTag
 
 
 class ImageSerializer(serializers.ModelSerializer):
+    tags = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Image
         fields = '__all__'

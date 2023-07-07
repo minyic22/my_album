@@ -23,6 +23,7 @@ class Image(models.Model):
     image_id = models.AutoField(primary_key=True)
     image_url = models.CharField(max_length=255, null=False)
     upload_date = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField('Tag', through='ImageTag')
 
     def __str__(self):
         return self.image_url
@@ -45,8 +46,8 @@ class Tag(models.Model):
 
 
 class ImageTag(models.Model):
-    image_id = models.ForeignKey(Image, on_delete=models.CASCADE)
-    tag_id = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.image_id) + ' ' + str(self.tag_id)
